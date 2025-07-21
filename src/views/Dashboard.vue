@@ -5,6 +5,16 @@
     <!-- Search & Filter -->
     <SearchBar :users="allUsers" @filter="applyFilter" />
 
+    <!-- CSV Export Button -->
+    <div class="flex justify-end mb-4">
+      <button
+        @click="exportToCSV"
+        class="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700 transition"
+      >
+        Download CSV
+      </button>
+    </div>
+
     <!-- User Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <UserCard
@@ -49,6 +59,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import Papa from 'papaparse'
+
 import { users as mockUsers } from '../data/users'
 import UserCard from '../components/UserCard.vue'
 import SearchBar from '../components/SearchBar.vue'
@@ -90,5 +102,19 @@ function goToPage(page) {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page
   }
+}
+
+// CSV Export
+function exportToCSV() {
+  const csv = Papa.unparse(filteredUsers.value)
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+
+  const link = document.createElement('a')
+  link.setAttribute('href', url)
+  link.setAttribute('download', 'tenamart_users.csv')
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 </script>
