@@ -54,16 +54,21 @@ Visit http://localhost:5173 (or whatever port your terminal displays).
 📁 Project Structure
 
 src/
-├── components/
-│   ├── UserCard.vue        # Displays individual user cards
-│   ├── SearchBar.vue       # Search and filter input
-│   └── SignupChart.vue     # Signup analytics charts
-├── data/
-│   └── users.js            # Mock user dataset
-├── views/
-│   └── Dashboard.vue       # Main dashboard layout
-├── App.vue
-└── main.js                 # App entry point
+ ├── components/
+ │    ├── AdminDashboard.vue    # Main dashboard component orchestrating the app
+ │    ├── ConfirmModal.vue      # Reusable confirmation modal dialog
+ │    ├── SearchBar.vue         # Search and filter UI component
+ │    ├── SignupChart.vue       # Charts component visualizing signup analytics
+ │    └── UserCard.vue          # Card component displaying individual user info
+ │
+ ├── data/
+ │    └── users.js              # Mock user data for development/testing
+ │
+ ├── views/
+ │    └── Dashboard.vue         # Main page/view integrating all components
+ │
+ ├── App.vue                   # Root Vue component
+ └── main.js                   # Application entry point and setup
 
 
 📘 Usage Guide
