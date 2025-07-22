@@ -1,105 +1,101 @@
-TenaMart Waiting List Admin Dashboard
-A simple and elegant admin dashboard built with Vue 3 and Tailwind CSS to manage and visualize users registered on TenaMart’s waiting list.
+# TenaMart Waiting List Admin Dashboard
 
-Features
-User Cards: Displays registered users with details.
+An elegant, responsive dashboard built with **Vue 3** and **Tailwind CSS** to manage, monitor, and analyze user registrations for TenaMart’s waiting list.
 
-Search & Filtering: Filter users by name, email, and signup source.
+## 🌟 Features
 
-Pagination: Navigate user lists easily with pagination controls.
+🧍 **User Cards** — Display user details with status tags
+  
+🔍 **Search & Filter** — Real-time filtering by name, email, or signup source
+  
+📄 **CSV Export** — Export filtered user data for analysis or storage
+  
+🚫 **Block/Unblock Users** — Toggle user access with confirmation
+  
+🗑️ **Delete Users** — Smooth deletion animations with confirmation modals
+  
+📊 **Signup Analytics** — Line chart by date + bar chart by source
+  
+🧭 **Pagination** — Navigate large user sets with ease
+  
+🎨 **Responsive UI** — Fluid layout optimized for all screen sizes
+ 
+✨ **Animations** — Fade-scale transitions for a refined UX
 
-CSV Export: Export filtered user data as CSV file.
+## 🛠️ Tech Stack
 
-Block/Unblock Users: Toggle user access with confirmation.
+| Tool         | Role                             |
+|--------------|----------------------------------|
+| Vue 3        | Frontend framework               |
+| Vite         | Dev server & build tool          |
+| Tailwind CSS | Utility-first styling            |
+| Chart.js     | Data visualization (line/bar)    |
+| PapaParse    | CSV generation for export        |
 
-Delete Users: Remove users with confirmation prompt and smooth animations.
+## 🔗 Demo
 
-Signup Analytics: Visualize signups by day (line chart) and by source (bar chart).
+Live preview: [tena-mart-waiting-list.vercel.app](https://tena-mart-waiting-list.vercel.app)
 
-Responsive UI: Fully responsive layout with Tailwind CSS.
+## 🚀 Installation
 
-Animations: Fade-scale transition effects for a polished experience.
-
-Tech Stack
-Vue 3
-
-Vite
-
-Tailwind CSS
-
-Chart.js
-
-PapaParse (CSV export)
-
-Demo
-https://tena-mart-waiting-list.vercel.app
-
-Installation
-Clone the repository
-
-bash
-Copy
-Edit
+```bash
+# Clone the repository
 git clone https://github.com/your-username/tenamart-admin-dashboard.git
 cd tenamart-admin-dashboard
-Install dependencies
 
-bash
-Copy
-Edit
+# Install dependencies
 npm install
-Run the development server
 
-bash
-Copy
-Edit
+# Start development server
 npm run dev
-Open in browser
 
-Navigate to http://localhost:5173 (or the port shown in your terminal).
+Visit http://localhost:5173 (or whatever port your terminal displays).
 
-Project Structure
-bash
-Copy
-Edit
+📁 Project Structure
+
 src/
- ├── components/
- │    ├── UserCard.vue        # User card display component
- │    ├── SearchBar.vue       # Search and filter component
- │    └── SignupChart.vue     # Charts for signup analytics
- ├── data/
- │    └── users.js            # Mock user data
- ├── views/
- │    └── Dashboard.vue       # Main dashboard view
- ├── App.vue
- └── main.js                  # Entry point
-Usage
-Use the search bar to filter users by name, email, or signup source.
+├── components/
+│   ├── UserCard.vue        # Displays individual user cards
+│   ├── SearchBar.vue       # Search and filter input
+│   └── SignupChart.vue     # Signup analytics charts
+├── data/
+│   └── users.js            # Mock user dataset
+├── views/
+│   └── Dashboard.vue       # Main dashboard layout
+├── App.vue
+└── main.js                 # App entry point
 
-Click Download CSV to export the current filtered list.
 
-Use Block/Unblock button on user cards to toggle user status (with confirmation).
+📘 Usage Guide
 
-Use Delete button on user cards to remove a user (with confirmation and animation).
+Use the SearchBar to filter by name, email, or source
 
-View signup trends in the charts below the user list.
+Export filtered results by clicking Download CSV
 
-Navigate pages with the pagination controls.
+Toggle user status via Block/Unblock with confirmations
 
-Customization
-Branding: Customize colors and fonts by editing Tailwind config and component styles.
+Remove users with Delete and smooth transition feedback
 
-Data: Replace src/data/users.js with your backend API or Firestore integration.
+View analytics with charts by signup date and signup source
 
-Pagination: Adjust pageSize in Dashboard.vue to change items per page.
+Navigate user data using built-in pagination controls
 
-Future Improvements
-Connect to a real backend for persistent data.
+🎨 Customization Tips
 
-Add infinite scrolling option.
+Branding: Edit Tailwind theme for custom colors, fonts, breakpoints
 
-Add user roles and permissions.
+Backend Integration: Replace users.js with live API or Firestore
 
-Enhance accessibility features.
+Pagination Limit: Adjust pageSize value in Dashboard.vue
 
-Add more charts and analytics.
+📈 Future Improvements
+
+🔄 Infinite scroll alternative for pagination
+
+🔗 Backend integration with CRUD support
+
+🛡️ User roles and permission levels
+
+♿ Accessibility enhancements (keyboard navigation, ARIA)
+
+📊 Expanded analytics (device type, location, conversion trends)
