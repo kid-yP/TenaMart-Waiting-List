@@ -32,7 +32,7 @@ Chart.js
 PapaParse (CSV export)
 
 Demo
-(Include link to a live demo or screenshots here)
+https://tena-mart-waiting-list.vercel.app
 
 Installation
 Clone the repository
