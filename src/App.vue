@@ -1,9 +1,7 @@
 <template>
-  <main class="min-h-screen bg-gray-50">
-    <Dashboard />
-  </main>
+  <AdminDashboard />
 </template>
 
 <script setup>
-import Dashboard from './views/Dashboard.vue'
+import AdminDashboard from '@/components/AdminDashboard.vue'
 </script>

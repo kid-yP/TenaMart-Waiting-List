@@ -78,5 +78,13 @@ export const users = [
     source: "Twitter",
     signupDate: "2025-07-10",
     status: "active"
+  },
+  {
+    id: 11,
+    name: "Elias Tesfamariam",
+    email: "ela@gmail.com",
+    source: "Direct",
+    signupDate: "2025-06-09",
+    status: "active"
   }
 ]

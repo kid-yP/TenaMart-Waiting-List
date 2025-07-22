@@ -1,28 +1,30 @@
 <template>
-  <div class="p-8 max-w-7xl mx-auto bg-gray-50 min-h-screen">
-    <h1 class="text-3xl font-extrabold mb-6 text-[#006E51]">TenaMart Waiting List</h1>
+  <div class="p-6 font-sans bg-gray-50 min-h-screen w-full">
+    <h1 class="text-4xl font-extrabold mb-8 text-[#006E51]">TenaMart Waiting List</h1>
 
     <!-- Search & Filter -->
     <SearchBar :users="allUsers" @filter="applyFilter" />
 
-    <!-- CSV Export Button -->
-    <div class="mt-6 mb-8">
+    <!-- CSV Button -->
+    <div class="mt-6 mb-8 flex justify-start">
       <button
         @click="downloadCSV"
-        class="bg-[#006E51] hover:bg-[#004d36] text-white px-5 py-2 rounded-lg shadow transition duration-300"
+        class="bg-[#006E51] hover:bg-[#00533e] text-white px-5 py-3 rounded shadow transition"
       >
         Download CSV
       </button>
     </div>
 
     <!-- Loading -->
-    <div v-if="isLoading" class="text-center text-gray-500">Loading users...</div>
+    <div v-if="isLoading" class="text-center text-gray-500 italic py-8">
+      Loading users...
+    </div>
 
-    <!-- User Cards -->
+    <!-- User Cards with Transition -->
     <TransitionGroup
       name="fade-scale"
       tag="div"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
     >
       <UserCard
         v-for="user in paginatedUsers"
@@ -33,12 +35,15 @@
       />
     </TransitionGroup>
 
-    <!-- Signup Chart -->
-    <div class="mt-12">
-      <SignupChart :users="filteredUsers" />
+    <!-- Signup Chart ABOVE Pagination, wider container -->
+    <div
+      class="mt-12 bg-white shadow-lg rounded-lg p-6 max-w-6xl mx-auto w-full"
+      style="min-height: 320px;"
+    >
+      <SignupChart :users="allUsers" />
     </div>
 
-    <!-- Pagination -->
+    <!-- Pagination BELOW Chart -->
     <div class="mt-8 flex items-center justify-center gap-3">
       <button
         @click="goToPage(currentPage - 1)"
@@ -53,10 +58,8 @@
         :key="page"
         @click="goToPage(page)"
         :class="[
-          'px-4 py-2 rounded',
-          page === currentPage
-            ? 'bg-[#006E51] text-white font-semibold shadow'
-            : 'bg-gray-100 hover:bg-gray-200'
+          'px-4 py-2 rounded font-semibold transition',
+          page === currentPage ? 'bg-[#006E51] text-white' : 'bg-gray-100 hover:bg-gray-200'
         ]"
       >
         {{ page }}
@@ -81,6 +84,7 @@ import UserCard from '../components/UserCard.vue'
 import SearchBar from '../components/SearchBar.vue'
 import SignupChart from '../components/SignupChart.vue'
 
+// State
 const allUsers = ref([])
 const filteredUsers = ref([])
 const isLoading = ref(true)
@@ -88,11 +92,16 @@ const currentPage = ref(1)
 const pageSize = 6
 
 onMounted(() => {
-  allUsers.value = mockUsers.map(u => ({ ...u, status: 'active' }))
+  allUsers.value = mockUsers.map(u => ({
+    ...u,
+    status: u.status || 'active',
+    createdAt: u.createdAt || new Date().toISOString()
+  }))
   filteredUsers.value = [...allUsers.value]
   isLoading.value = false
 })
 
+// Computed
 const totalPages = computed(() =>
   Math.ceil(filteredUsers.value.length / pageSize)
 )
@@ -102,6 +111,7 @@ const paginatedUsers = computed(() => {
   return filteredUsers.value.slice(start, start + pageSize)
 })
 
+// Filter
 function applyFilter({ searchText, selectedSource }) {
   const text = searchText.toLowerCase()
   filteredUsers.value = allUsers.value.filter(user => {
@@ -114,12 +124,14 @@ function applyFilter({ searchText, selectedSource }) {
   currentPage.value = 1
 }
 
+// Pagination
 function goToPage(page) {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page
   }
 }
 
+// Confirm before block/unblock
 function confirmBlock(user) {
   const action = user.status === 'blocked' ? 'Unblock' : 'Block'
   if (confirm(`${action} ${user.name}?`)) {
@@ -136,6 +148,7 @@ function toggleBlock(user) {
   }
 }
 
+// Confirm before delete
 function confirmDelete(userId) {
   const user = allUsers.value.find(u => u.id === userId)
   if (user && confirm(`Are you sure you want to delete ${user.name}?`)) {
@@ -148,14 +161,16 @@ function deleteUser(userId) {
   filteredUsers.value = filteredUsers.value.filter(u => u.id !== userId)
 }
 
+// CSV
 function downloadCSV() {
   const cleanData = filteredUsers.value
     .filter(u => u.status !== 'blocked')
-    .map(({ id, name, email, source }) => ({
+    .map(({ id, name, email, source, createdAt }) => ({
       ID: id,
       Name: name,
       Email: email,
-      Source: source
+      Source: source,
+      "Signup Date": createdAt
     }))
 
   const csv = Papa.unparse(cleanData)
